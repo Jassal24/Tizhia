@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iloveyouu</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+        * {
+            margin-right: 0;
+            padding: 0;
+            box-sizing: border-box;
+            list-style: none;
+            scroll-behavior: smooth;
+            object-fit: fill;
+        }
+        
+         ::-webkit-scrollbar {
+            height: .1rem;
+            width: .1rem;
+        }
+        
+         ::-webkit-scrollbar-track {
+            background-color: #67ccff;
+        }
+        
+         ::-webkit-scrollbar-thumb {
+            background-color: #194eb9;
+            border-radius: 5rem;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            color: #12f7ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        ul.navlist {
+            display: flex;
+            align-items: center;
+        }
+        
+        .navlist li {
+            margin: .5rem;
+        }
+        
+        .navlist li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 5px 12px;
+            border: 2px solid #12f7ff;
+            border-radius: 25px;
+            transition: all .3s ease;
+        }
+        
+        .navlist li a:hover,
+        .navlist li a:active {
+            box-shadow: 0 0 1rem #12f7ff;
+            background: #12f7ff;
+            color: #1d002c;
+        }
+        
+        .parallax-home #text {
+            position: absolute;
+            font-size: 2.5rem;
+            text-shadow: 1px 10px 4px rgba(2, 3, 3, 0.85);
+        }
+        
+        .container {
+            background-color: #000;
+            display: flex;
+            align-items: normal;
+            justify-content: space-between;
+            text-shadow: #12f7ff;
+            margin-right: 0px;
+            position: absolute;
+        }
+        
+        h1 {
+            color: #fff;
+            font-size: 70px;
+            margin-left: 0;
+        }
+        
+        span {
+            color: #ff2724;
+        }
+        
+        .falling-flowers {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            opacity: 0;
+            animation: fall linear;
+        }
+        
+        @keyframes fall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(800px) rotate(360deg);
+            }
+        }
+        
+        .scrollable-content {
+            position: relative;
+            z-index: 1;
+            /* Below the falling flowers */
+        }
+        
+        .parallax-home img {
+            display: flex;
+            justify-content: space-between;
+            z-index: 1000;
+            pointer-events: none;
+            object-fit: cover;
+        }
+        
+        .sect {
+            background: url(images/butss.png);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: monospace;
+            overflow: hidden;
+        }
+        
+        .slider {
+            position: relative;
+            width: 50%;
+            height: 670px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .item {
+            width: 100%;
+            height: 100%;
+            background-color: #010000;
+            border-radius: 10px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            text-align: center;
+            /* Center the text horizontally */
+        }
+        
+        .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .item .text {
+            margin-top: 200px;
+            position: relative;
+            z-index: 1;
+            color: #fff;
+            padding: 20px;
+            max-width: 80%;
+            font-size: 1.2rem;
+            background: rgba(177, 138, 138, 0.5);
+            /* Semi-transparent background for readability */
+            border-radius: 10px;
+            text-align: center;
+            /* Center the text inside */
+        }
+        
+        .item h1 {
+            margin-bottom: 10px;
+            /* Add spacing between heading and paragraph */
+            font-size: 2rem;
+        }
+        
+        .item p {
+            font-size: 1rem;
+            margin: 0;
+        }
+        
+        #next,
+        #prev {
+            position: absolute;
+            top: 50%;
+            color: #fff;
+            background-color: transparent;
+            border: none;
+            font-size: 3rem;
+            font-family: monospace;
+            font-weight: bold;
+            cursor: pointer;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        
+        #prev {
+            left: 10px;
+        }
+        
+        #next {
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="falling-flowers">
+    </div>
+    <!-- Falling flowers stay fixed on screen -->
+
+    <div class="scrollable-content">
+        <div class="parallax-home">
+
+            <div class="container typewriter-1">
+                <h1>Hello My, <span class="auto-type"></span></h1>
+                <img src="images/flowers.jpg" alt="id">
+            </div>
+            <div class="container2 typewriter-2">
+                < <img src="images/bleh.png" alt="id">
+            </div>
+            <div class="container3 typewriter-3">
+                <h1>Your'e like a , <span class="auto-type"></span></h1>
+                <img src="images/head.jpg" id="">
+            </div>
+            <div class="container4 typewriter-4">
+                <h1>Ayaw na , <span class="auto-type"></span></h1>
+                <img src="images/right.jpg" alt="" id="">
+            </div>
+            <div class="container5 typewriter-5">
+                <h1>You , <span class="auto-type"></span></h1>
+                <img src="images/left.jpg" alt="" id="">
+            </div>
+            <div class="container6 typewriter-6">
+                <h1>Ayan, <span class="auto-type"></span></h1>
+                <img src="images/treeee.jpg" alt="" id="">
+            </div>
+            <div class="container7 typewriter-7">
+                <h1> >>>> <span class="auto-type"></span></h1>
+                <img src="images/tree.jpg" alt="" id="">
+            </div>
+            <div class="container8 typewriter-8">
+                <h1> You Read, <span class="auto-type"></span></h1>
+                <img src="images/duo.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <section class="sect">
+        <div class="slider">
+            <div class="item">
+                <img src="images/lorma.png" alt="Slide 1">
+                <div class="text">
+                    <h1>Slide 1</h1>
+                    <p>Hello My Prettiest babygirl I hope U like it, First of all I want to congratulate u for being strong everytime and andito tayo sa situation na ganto hmmm. I'm So Proud of poo Sooo Much, Wala man ako jan pero andito naman ako sa bahay
+                        hehe cheeze. Uhmmm I'm happy seeing u step by step doing well on your journey on your life po. Uhmm Goodluck po jan and ingat po kayo. Iloveyouu Soo much baby ko, ah nga pala ganda mo dito sa Pic mo kaso blur lang d na kinaya ng
+                        crack picsart maging goods ang quality..
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="images/slide2.png" alt="Slide 2">
+                <div class="text" style="margin-top: 10px;">
+                    <h1>Slide 2</h1>
+                    <p>Uhm I just wanna say Sorry po for all the things that we've been through dahil saken puro away tapos mataas pa pride ko, Sorry po Mahal, Gandaa mo talagaaa ahh Sheesh
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="images/slide3.png" alt="Slide 3">
+                <div class="text" style="margin-top: 510px;">
+                    <h1>Slide 3</h1>
+                    <p>Lastly, I want to say Thank you for understanding me for every situation na kung hindi dahil saken is hindi naman mangyayare lahat to. Thank you soo much po talaga and Im thankfull din kasi meron kang ako hehe joke langs siningit pa
+                        sarili eh. So ayun napaka swerte ko kasi meron akong ikaw na mabait, maganda, brainy, smart, super cutee na gf. For last and for most I'm so Sorry for having me po, i wish na maging goods po yung capping nyo and congrats kasi top
+                        2 ka sheesh next time dapat number 1 na yan ah hmmm. Hindi na me magtatagal kasi alaws pa me tulog for 2 days and nangingig na rin po ako meron sana itong background song eh kaso dont have much time na po and sa mga d na allign
+                        jan kasalanan yan ng code ayaw po ma allign eh next time pagbubutihan ko Congrats po ulet. Iloveyouuu.
+                    </p>
+                </div>
+            </div>
+            <button id="prev">&#8249;</button>
+            <button id="next">&#8250;</button>
+        </div>
+    </section>
+
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        var typed1 = new Typed(".typewriter-1 h1 span", {
+            strings: ["Pretty", "Cutiee", "Girlfriend", "BabyGirl"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+
+        var typed2 = new Typed(".typewriter-3 h1 span", {
+            strings: ["Butterfly", "So Beautifull", "And Shimmering"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+
+        var typed2 = new Typed(".typewriter-4 h1 span", {
+            strings: ["Maallign", "And Ma Adjust", "Ng Image"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+
+        var typed2 = new Typed(".typewriter-5 h1 span", {
+            strings: ["Scroll", "Down", "Muna"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+        var typed2 = new Typed(".typewriter-6 h1 span", {
+            strings: ["Malapit", "Na"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+        var typed1 = new Typed(".typewriter-7 h1 span", {
+            strings: [">>", "!!!", "!!!", "<<"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+
+        var typed1 = new Typed(".typewriter-8 h1 span", {
+            strings: ["Na", "Your", "Message", "HeHe"],
+            typeSpeed: 150,
+            backSpeed: 150,
+            loop: true
+        });
+
+
+        // Add more Typed instances for other containers as needed
+        function createFlower() {
+            const flowerContainer = document.querySelector('.falling-flowers');
+            const flower = document.createElement('img');
+            flower.src = '/images/flower.png'; // Use a flower image here
+            flower.classList.add('flower');
+
+            // Random starting position and animation duration
+            flower.style.left = `${Math.random() * 100}vw`;
+            flower.style.animationDuration = `${Math.random() * 2 + 2}s`;
+
+            flowerContainer.appendChild(flower);
+
+            // Remove flower after animation ends
+            setTimeout(() => {
+                flower.remove();
+            }, 3000);
+        }
+
+        // Generate flowers at random intervals
+        setInterval(createFlower, 300);
+
+        let items = document.querySelectorAll('.slider .item');
+        let next = document.getElementById('next');
+        let prev = document.getElementById('prev');
+
+        let active = 0;
+
+        function loadShow() {
+            items.forEach((item, index) => {
+                let offset = index - active;
+                item.style.transform = `translateX(${offset * 100}%)`;
+                item.style.opacity = offset === 0 ? 1 : 0.5;
+                item.style.zIndex = offset === 0 ? 1 : 0;
+                item.style.filter = offset === 0 ? 'none' : 'blur(5px)';
+            });
+        }
+
+        loadShow();
+
+        next.addEventListener('click', () => {
+            active = (active + 1) % items.length;
+            loadShow();
+        });
+
+        prev.addEventListener('click', () => {
+            active = (active - 1 + items.length) % items.length;
+            loadShow();
+        });
+    </script>
+</body>
+
+</html>
